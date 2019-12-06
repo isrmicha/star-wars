@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
+import PropTypes from 'prop-types'
 
 export const CardGrid = ({ planets }) =>
   <Grid container spacing={3}>
@@ -22,3 +23,7 @@ export const CardGrid = ({ planets }) =>
         </Card>
       </Grid>)}
   </Grid>
+
+CardGrid.propTypes = {
+  planets: PropTypes.arrayOf(Object)
+}

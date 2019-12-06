@@ -5,17 +5,18 @@ import PropTypes from 'prop-types'
 import { CardGrid } from '.'
 
 export const Home = ({ planet, fetchPlanets }) => {
-  useEffect(() => {
-    fetchPlanets()
-  }, [])
-  const renderLoading = () => <CircularProgress />
+  const { status, planets } = planet
 
+  useEffect(() => {
+    if (!status) { fetchPlanets() }
+  }, [])
+
+  const renderLoading = () => <CircularProgress />
   const renderError = () => (<Typography variant="h1" component="h2" gutterBottom>
     Ooops, algo deu errado.
   </Typography>)
 
-  const { status, planets } = planet
-  if (status === 'loading') return renderLoading()
+  if (!status || status === 'loading') return renderLoading()
   if (status === 'error') return renderError()
   return <CardGrid planets={planets}/>
 }
@@ -23,5 +24,6 @@ export const Home = ({ planet, fetchPlanets }) => {
 Home.propTypes = {
   status: PropTypes.string,
   fetchPlanets: PropTypes.func,
-  planets: PropTypes.arrayOf(Object)
+  planets: PropTypes.arrayOf(Object),
+  planet: PropTypes.object
 }
